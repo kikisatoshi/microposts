@@ -3,3 +3,7 @@
   <%= gravatar_for @user %>
   <%= @user.name %>
 </h1>
+
+<h2>
+  <%= link_to "基本情報の編集", edit_user_path(@user) %>
+</h2>
