@@ -1,8 +1,8 @@
-<h1>Sign up</h1>
+<h1>基本情報の編集</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for(current_user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
@@ -11,13 +11,19 @@
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
 
+      <%= f.label :location %>
+      <%= f.text_field :location, class: 'form-control', placeholder: "例）日本" %>
+
+      <%= f.label :profile %>
+      <%= f.text_area :profile, class: 'form-control', placeholder: "例）よろしくお願いします。" %>
+
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-      <% end %>
+      <%= f.submit "Update my account", class: "btn btn-large btn-primary" %>
+    <% end %>
   </div>
 </div>
