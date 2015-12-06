@@ -6,16 +6,22 @@
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: 'form-control' %>
 
       <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.email_field :email, class: 'form-control' %>
 
       <%= f.label :location %>
-      <%= f.text_field :location, placeholder: "例）日本" %>
+      <%= f.text_field :location, class: 'form-control', placeholder: "例）日本" %>
 
       <%= f.label :profile %>
-      <%= f.text_area :profile, placeholder: "例）よろしくお願いします。" %>
+      <%= f.text_area :profile, class: 'form-control', placeholder: "例）よろしくお願いします。" %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.submit "Update my account", class: "btn btn-large btn-primary" %>
     <% end %>
