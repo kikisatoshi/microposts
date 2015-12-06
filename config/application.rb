@@ -28,6 +28,9 @@ module Microposts
       g.javascripts false
       g.helper false
       g.test_framework false
+
+    # Ajaxでリクエストを送信する際に、データを安全にやりとりするため
+    config.action_view.embed_authenticity_token_in_remote_forms = true
     end
   end
 end
