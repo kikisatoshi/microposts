@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       # 保存に成功した場合はトップページへリダイレクト
-      flash[:info] = "基本情報を編集しました"
+      flash[:info] = "Thanks, your settings have been saved."
       redirect_to @user
     else
       # 保存に失敗した場合は編集画面へ戻す
@@ -55,7 +55,8 @@ class UsersController < ApplicationController
 
   def authorize!
     if @user != current_user
-      redirect_to root_url, alert: "不正なアクセスです。"
+      flash[:danger] = "Invalid access!"
+      redirect_to root_url
     end
   end
 end

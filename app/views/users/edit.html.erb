@@ -1,4 +1,4 @@
-<h1>基本情報の編集</h1>
+<h1>Setteings</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -6,16 +6,16 @@
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.text_field :name, class: 'form-control', placeholder: "Kirameki Taro" %>
 
       <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.email_field :email, class: 'form-control', placeholder: "taro.kirameki@example.com" %>
 
       <%= f.label :location %>
-      <%= f.text_field :location, class: 'form-control', placeholder: "例）日本" %>
+      <%= f.text_field :location, class: 'form-control', placeholder: "Japan" %>
 
       <%= f.label :profile %>
-      <%= f.text_area :profile, class: 'form-control', placeholder: "例）よろしくお願いします。" %>
+      <%= f.text_area :profile, class: 'form-control', placeholder: "Write my profile..." %>
 
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
