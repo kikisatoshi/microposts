@@ -1,0 +1,8 @@
+<% if @feed_items.any? %>
+  <ol class="microposts">
+    <!--@feed_itemsはMicropostモデルのコレクションなのでshow.html.erbにあるrender @micropostsと同じ。
+    @micropostsからデータを一つ一つ取り出して、micropostというローカル変数として、
+    パーシャルapp/views/microposts/_micropost.html.erbに渡している-->
+    <%= render @feed_items %>
+  </ol>
+<% end %>
