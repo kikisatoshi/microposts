@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers]
   before_action :authorize!, only: [:edit, :update]
 
   def show
@@ -38,6 +38,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def followings
+    @followings = @user.following_users
+  end
+
+  def followers
+    @followers = @user.follower_users
+  end
+
   private
 
   def user_params
@@ -50,12 +58,16 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    if User.exists?(:id => params[:id])
+      @user = User.find(params[:id])
+    else
+      redirect_to current_user
+    end
   end
 
   def authorize!
     if @user != current_user
-      flash[:danger] = "Invalid access!"
+      flash[:danger] = "invalid access!"
       redirect_to root_url
     end
   end

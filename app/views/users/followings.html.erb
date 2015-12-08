@@ -2,7 +2,6 @@
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
-        <!--gravatar_for:Gravatarというサービスに登録された画像を引っ張ってくる-->
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
@@ -15,14 +14,18 @@
     </section>
   </aside>
   <div class="col-md-8">
-    <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <!--<= render partial: 'microposts/micropost', collection: @microposts >と同じ。-->
-        <!--@micropostsからデータを一つ一つ取り出して、micropostというローカル変数として、-->
-        <!--パーシャルapp/views/microposts/_micropost.html.erbに渡している-->
-        <%= render @microposts %>
+    <% if @followings.any? %>
+      <h3>Followings (<%= @followings.count %>)</h3>
+      <ol class="followings">
+        <!--%= render 'users/followings_form', following_user: @user.following_users %>-->
+        <% @followings.each do |following| %>
+          <li id="following-<%= following.id %>">
+            <%= link_to gravatar_for(following, size: 50), following %>
+            <span class="user"><%= link_to following.name, following %></span>
+            <span class="location">Location : <%= following.location %></span>
+            <span class="profile">Profile : <%= following.profile %></span>
+          </li>
+        <% end %>
       </ol>
     <% end %>
   </div>
