@@ -1,7 +1,7 @@
 class MicropostsController < ApplicationController
   # ログインしていない場合はcreateメソッドを実行せず、/loginにリダイレクト
   before_action :logged_in_user
-  before_action :set_micropost, only: [:destroy, :repost, :unrepost]
+  before_action :set_micropost, only: [:destroy, :repost, :unrepost, :favorite, :unfavorite]
 
   def create
     # build:モデルオブジェクトを生成。newメソッドの別名。
@@ -22,6 +22,11 @@ class MicropostsController < ApplicationController
         repost.destroy
       end
     end
+    if Favorite.exists?(:micropost_id => @micropost.id)
+      for favorite in Favorite.where(micropost_id: @micropost.id)
+        favorite.destroy
+      end
+    end
     @micropost.destroy
     flash[:success] = "Micropost deleted"
     # request.referrer:該当ページに遷移する直前に閲覧していたページのURL
@@ -31,7 +36,7 @@ class MicropostsController < ApplicationController
   def repost
     micropost = current_user.microposts.build(content: @micropost.content)
     if micropost.save
-      repost = @micropost.reposts.build(repost_micropost_id: micropost.id, micropost_id: @micropost.id)
+      repost = @micropost.reposts.build(repost_micropost_id: micropost.id)
       if repost.save
         flash[:success] = "Micropost reposted!"
       end
@@ -44,6 +49,25 @@ class MicropostsController < ApplicationController
     Repost.find_by(repost_micropost_id: @micropost.id).destroy
     @micropost.destroy
     flash[:success] = "Micropost unreposted"
+    redirect_to request.referrer || root_url
+  end
+
+  def favorite
+    favorite = current_user.favorites.build(micropost_id: @micropost.id)
+    if favorite.save
+      flash[:success] = "Micropost favorite!"
+    end
+    redirect_to request.referrer || root_url
+  end
+
+  def unfavorite
+    return redirect_to root_url unless Favorite.exists?(:micropost_id => @micropost.id)
+    for favorite in Favorite.where(micropost_id: @micropost.id)
+      if current_user.id == favorite.user_id
+        favorite.destroy
+        flash[:success] = "Micropost unfavorite"
+      end
+    end
     redirect_to request.referrer || root_url
   end
 

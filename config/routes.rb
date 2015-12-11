@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     member do
       get :followings
       get :followers
+      get :myfavorites
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
@@ -17,6 +18,8 @@ Rails.application.routes.draw do
     member do
       post :repost
       delete :unrepost
+      post :favorite
+      delete :unfavorite
     end
   end
   resources :relationships, only: [:create, :destroy]

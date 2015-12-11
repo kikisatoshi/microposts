@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :followings, :followers]
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers, :myfavorites]
   before_action :authorize!, only: [:edit, :update]
 
   def show
@@ -45,6 +45,11 @@ class UsersController < ApplicationController
 
   def followers
     @followers = @user.follower_users.page(params[:page])
+  end
+
+  def myfavorites
+    @favorites = @user.favorites.page(params[:page])
+    @microposts = Micropost.find(@favorites.pluck("micropost_id"))
   end
 
   private

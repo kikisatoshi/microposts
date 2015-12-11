@@ -53,4 +53,7 @@ class User < ActiveRecord::Base
   def feed_items
     Micropost.where(user_id: following_user_ids + [self.id])
   end
+
+  # お気に入り関係
+  has_many :favorites
 end

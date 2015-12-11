@@ -1,0 +1,17 @@
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <%= render 'shared/user_info_show' %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @microposts.any? %>
+      <h3>Favorites (<%= @microposts.count %>)</h3>
+      <ol class="microposts">
+        <%= page_entries_info @favorites %>
+        <%= render @microposts %>
+        <%= paginate @favorites %>
+      </ol>
+    <% end %>
+  </div>
+</div>
