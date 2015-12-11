@@ -1,0 +1,10 @@
+<h1>
+  <%= gravatar_for @user %>
+  <%= @user.name %>
+</h1>
+<span><%= link_to "view my profile", @user %></span>
+<span><%= link_to "followings(#{@user.following_users.count})", followings_user_path(@user) %></span>
+<span><%= link_to "followers(#{@user.follower_users.count})", followers_user_path(@user) %></span>
+<br>
+<h2>Location : <%= @user.location %></h2>
+<h2>Profile : <%= @user.profile %></h2>

@@ -1,17 +1,7 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1>
-        <!--gravatar_for:Gravatarというサービスに登録された画像を引っ張ってくる-->
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-      <span><%= link_to "view my profile", @user %></span>
-      <span><%= link_to "followings(#{@user.following_users.count})", followings_user_path(@user) %>&nbsp;&nbsp;&nbsp;
-            <%= link_to "followers(#{@user.follower_users.count})", followers_user_path(@user) %></span>
-      <br><br>
-      <h2>Location : <%= @user.location %></h2>
-      <h2>Profile : <%= @user.profile %></h2>
+      <%= render 'shared/user_info_show' %>
     </section>
   </aside>
   <div class="col-md-8">
@@ -19,10 +9,12 @@
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
+        <%= page_entries_info @microposts %>
         <!--<= render partial: 'microposts/micropost', collection: @microposts >と同じ。-->
         <!--@micropostsからデータを一つ一つ取り出して、micropostというローカル変数として、-->
         <!--パーシャルapp/views/microposts/_micropost.html.erbに渡している-->
         <%= render @microposts %>
+        <%= paginate @microposts %>
       </ol>
     <% end %>
   </div>

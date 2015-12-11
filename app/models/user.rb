@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   # ユーザーは複数の投稿を持てる。buildメソッドを生成。
   has_many :microposts
 
+  # フォローフォロワー関係
   has_many :following_relationships, class_name:  "Relationship",
                                      foreign_key: "follower_id",
                                      dependent:   :destroy

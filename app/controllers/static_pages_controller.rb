@@ -7,7 +7,13 @@ class StaticPagesController < ApplicationController
 
       # includes(:user):userの情報を紐付けている。
       # これにより@feed_itemsからアイテムを取り出すたびにDBからユーザ情報を取り出さずに済む。
+      # page(params[:page]はページネーション用
       @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc)
+                    .page(params[:page])
     end
+  end
+
+  def userlist
+    @all_users = User.all.page(params[:page])
   end
 end

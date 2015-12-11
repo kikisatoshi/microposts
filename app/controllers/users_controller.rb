@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   def show
     # ユーザーに紐付いたマイクロポストを作成日時が新しいものから取得し、@micropostsに代入
-    @microposts = @user.microposts.order(created_at: :desc)
+    # page(params[:page]はページネーション用
+    @microposts = @user.microposts.order(created_at: :desc).page(params[:page])
   end
 
   def new
@@ -39,11 +40,11 @@ class UsersController < ApplicationController
   end
 
   def followings
-    @followings = @user.following_users
+    @followings = @user.following_users.page(params[:page])
   end
 
   def followers
-    @followers = @user.follower_users
+    @followers = @user.follower_users.page(params[:page])
   end
 
   private

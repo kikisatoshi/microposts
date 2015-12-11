@@ -1,22 +1,14 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-      <span><%= link_to "view my profile", @user %></span>
-      <span><%= link_to "followings(#{@user.following_users.count})", followings_user_path(@user) %>&nbsp;&nbsp;&nbsp;
-            <%= link_to "followers(#{@user.follower_users.count})", followers_user_path(@user) %></span>
-      <br><br>
-      <h2>Location : <%= @user.location %></h2>
-      <h2>Profile : <%= @user.profile %></h2>
+      <%= render 'shared/user_info_show' %>
     </section>
   </aside>
   <div class="col-md-8">
     <% if @followers.any? %>
       <h3>Followers (<%= @followers.count %>)</h3>
       <ol class="followers">
+        <%= page_entries_info @followers %>
         <% @followers.each do |follower| %>
           <li id="follower-<%= follower.id %>">
             <%= link_to gravatar_for(follower, size: 50), follower %>
@@ -25,6 +17,7 @@
             <span class="profile">Profile : <%= follower.profile %></span>
           </li>
         <% end %>
+        <%= paginate @followers %>
       </ol>
     <% end %>
   </div>

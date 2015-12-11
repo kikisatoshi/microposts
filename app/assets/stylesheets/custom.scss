@@ -175,9 +175,9 @@ aside {
   margin-top: 15px;
 }
 
-/* microposts, followings, followers */
+/* microposts, followings, followers, all_users */
 
-.microposts, .followings, .followers {
+.microposts, .feed_items, .followings, .followers, .all_users {
   // list-style:リストの先頭に表示するマーカーに関する指定をまとめて行う
   list-style: none;
   padding: 0;
@@ -189,6 +189,11 @@ aside {
   .user {
     margin-top: 5em;
     padding-top: 0;
+    .repost_user_name{
+      background-color: khaki;
+      font-size: 0.8em;
+      color: #008000;
+    }
   }
   .content {
     display: block;
@@ -198,10 +203,19 @@ aside {
       padding: 5px 0;
     }
   }
-  .timestamp {
+  .operation {
     color: $gray-light;
     display: block;
     margin-left: 60px;
+    .gray {
+      color: #eaeaea;
+    }
+    .green {
+      color: #008000;
+    }
+    .orange{
+      color: orange;
+    }
   }
   .gravatar {
     float: left;

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root to: 'static_pages#home'
-  get    'signup', to: 'users#new'
-  get    'login' , to: 'sessions#new'
-  post   'login' , to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  get    'userlist', to: 'static_pages#userlist'
+  get    'signup'  , to: 'users#new'
+  get    'login'   , to: 'sessions#new'
+  post   'login'   , to: 'sessions#create'
+  delete 'logout'  , to: 'sessions#destroy'
 
   resources :users do
     member do
@@ -12,7 +13,12 @@ Rails.application.routes.draw do
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts
+  resources :microposts do
+    member do
+      post :repost
+      delete :unrepost
+    end
+  end
   resources :relationships, only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
