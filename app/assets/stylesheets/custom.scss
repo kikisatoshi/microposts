@@ -147,6 +147,11 @@ aside {
       margin-bottom: 3px;
       line-height: 1;
     }
+    span.location, span.profile{
+      display: inline;
+      color: $gray-light;
+      line-height: 1.5;
+    }
     h1 {
       font-size: 1.4em;
       text-align: left;

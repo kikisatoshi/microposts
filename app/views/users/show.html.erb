@@ -7,7 +7,7 @@
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <h3><%= t('view.Microposts') %> (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
         <%= page_entries_info @microposts %>
         <!--<= render partial: 'microposts/micropost', collection: @microposts >と同じ。-->

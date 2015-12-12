@@ -1,4 +1,4 @@
-<h1>Setteings</h1>
+<h1><%= t('view.Settings') %></h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -6,24 +6,24 @@
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control', placeholder: "Kirameki Taro" %>
+      <%= f.text_field :name, class: 'form-control', placeholder: t('view.Kirameki Taro') %>
 
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control', placeholder: "taro.kirameki@example.com" %>
 
       <%= f.label :location %>
-      <%= f.text_field :location, class: 'form-control', placeholder: "Japan" %>
+      <%= f.text_field :location, class: 'form-control', placeholder: t('view.Japan') %>
 
       <%= f.label :profile %>
-      <%= f.text_area :profile, class: 'form-control', placeholder: "Write my profile..." %>
+      <%= f.text_area :profile, class: 'form-control', placeholder: t('view.Write your profile') %>
 
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, t('view.Confirmation') %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-      <%= f.submit "Update my account", class: "btn btn-large btn-primary" %>
+      <%= f.submit t('view.Update my account'), class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

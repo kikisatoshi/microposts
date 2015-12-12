@@ -3,7 +3,11 @@
   <div id="error_explanation">
     <div class="alert alert-danger">
       <!--pluralize(integer,string):数値が2以上の場合は文字列を複数形にする-->
-      The form contains <%= pluralize(object.errors.count, "error") %>
+      <% if locale == :ja %>
+        <%= object.errors.count %><%= t('view.error') %>
+      <% else %>
+        The form contains <%= pluralize(object.errors.count, "error") %>
+      <% end %>
     </div>
     <ul>
       <% object.errors.full_messages.each do |msg| %>

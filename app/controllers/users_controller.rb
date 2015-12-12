@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :followings, :followers, :myfavorites]
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers, :show_favorites]
   before_action :authorize!, only: [:edit, :update]
 
   def show
@@ -16,7 +16,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       # flash[キー]:簡単なメッセージを画面に表示
-      flash[:success] = "Welcom to the Sample App!"
+      if locale == :ja
+        flash[:success] = "マイクロポストへようこそ！"
+      else
+        flash[:success] = "Welcom to the Microposts!"
+      end
       # @user＝URLヘルパ（user_path(@user)）＝URL（/users/:id）
       # redirect_to＝HTTPメソッド（GET）＝アクション（show）
       redirect_to @user
@@ -31,7 +35,11 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       # 保存に成功した場合はトップページへリダイレクト
-      flash[:info] = "Thanks, your settings have been saved."
+      if locale == :ja
+        flash[:success] = "アカウント設定が更新されました。"
+      else
+        flash[:success] = "Your settings have been saved."
+      end
       redirect_to @user
     else
       # 保存に失敗した場合は編集画面へ戻す
@@ -47,7 +55,7 @@ class UsersController < ApplicationController
     @followers = @user.follower_users.page(params[:page])
   end
 
-  def myfavorites
+  def show_favorites
     @favorites = @user.favorites.page(params[:page])
     @microposts = Micropost.find(@favorites.pluck("micropost_id"))
   end
@@ -73,7 +81,11 @@ class UsersController < ApplicationController
 
   def authorize!
     if @user != current_user
-      flash[:danger] = "invalid access!"
+      if locale == :ja
+        flash[:danger] = "不正なアクセスです！"
+      else
+        flash[:danger] = "Invalid access!"
+      end
       redirect_to root_url
     end
   end

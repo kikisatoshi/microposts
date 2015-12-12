@@ -28,6 +28,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 # kaminariを追加
 gem 'kaminari'
+# error_messages_forの日本語化ヘルパーを追加
+gem 'dynamic_form'
+# javascriptのi18n対応
+gem "i18n-js"
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'

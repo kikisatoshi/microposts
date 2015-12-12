@@ -2,14 +2,16 @@
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
 
   <% if Repost.exists?(:repost_micropost_id => micropost.id) %>
-    <% reposted_user = Micropost.find(Repost.find_by(repost_micropost_id: micropost.id).micropost_id).user %>
-    <% reposted_micropost = Micropost.find(Repost.find_by(repost_micropost_id: micropost.id).micropost_id) %>
+    <% reposted_user = Micropost.find(Repost.find_by(
+       repost_micropost_id: micropost.id).micropost_id).user %>
+    <% reposted_micropost = Micropost.find(Repost.find_by(
+       repost_micropost_id: micropost.id).micropost_id) %>
   <% end %>
   <span class="user">
-    <% if reposted_user != nil %>
+    <% if reposted_user.present? %>
       <%= link_to reposted_user.name, reposted_user %>&nbsp;&nbsp;
       <span class = "repost_user_name">
-        <%= link_to micropost.user.name, micropost.user %> reposted
+        <%= link_to micropost.user.name, micropost.user %> <%= t('view.Reposted') %>
       </span>
     <% else %>
       <%= link_to micropost.user.name, micropost.user %>
@@ -19,7 +21,7 @@
   <span class="content"><%= micropost.content %></span>
 
   <section class="operation">
-    <% if reposted_user != nil %>
+    <% if reposted_user.present? %>
       &nbsp;<span class="glyphicon glyphicon-retweet green" aria-hidden="true"></span>
       (<%= reposted_micropost.reposts.count %>)&nbsp;&nbsp;
       <% green = 1 %>
@@ -35,13 +37,15 @@
       <% if temp == 1 %>
         &nbsp;<span class="glyphicon glyphicon-retweet green" aria-hidden="true"></span>
       <% else %>
-        &nbsp;<%= link_to "", repost_micropost_path(micropost.id), class: "glyphicon glyphicon-retweet",
-                  "aria-hidden" => "true", method: :post, data: { confirm: "REPOST : You sure?" } %>
+        &nbsp;<%= link_to "", repost_micropost_path(micropost.id),
+                  class: "glyphicon glyphicon-retweet", "aria-hidden" => "true",
+                  method: :post, data: { confirm: "REPOST : You sure?" } %>
       <% end %>
       (<%= micropost.reposts.count %>)&nbsp;&nbsp;
     <% else %>
-      &nbsp;<%= link_to "", repost_micropost_path(micropost.id), class: "glyphicon glyphicon-retweet",
-                "aria-hidden" => "true", method: :post, data: { confirm: "REPOST : You sure?" } %>
+      &nbsp;<%= link_to "", repost_micropost_path(micropost.id),
+                class: "glyphicon glyphicon-retweet", "aria-hidden" => "true",
+                method: :post, data: { confirm: "REPOST : You sure?" } %>
       (<%= micropost.reposts.count %>)&nbsp;&nbsp;
     <% end %>
 
@@ -54,25 +58,28 @@
       (<%= Favorite.where(micropost_id: reposted_micropost.id).count %>)&nbsp;&nbsp;
     <% else %>
       <% if current_user.favorites.exists?(:micropost_id => micropost.id) %>
-        <%= link_to "", unfavorite_micropost_path(micropost.id), class: "glyphicon glyphicon-star orange",
-            "aria-hidden" => "true", method: :delete, data: { confirm: "UnFAVORITE : You sure?" } %>
+        <%= link_to "", unfavorite_micropost_path(micropost.id),
+            class: "glyphicon glyphicon-star orange", "aria-hidden" => "true",
+            method: :delete, data: { confirm: "UNFAVORITE : You sure?" } %>
       <% else %>
-        <%= link_to "", favorite_micropost_path(micropost.id), class: "glyphicon glyphicon-star-empty",
-            "aria-hidden" => "true", method: :post, data: { confirm: "FAVORITE : You sure?" } %>
+        <%= link_to "", favorite_micropost_path(micropost.id),
+            class: "glyphicon glyphicon-star-empty", "aria-hidden" => "true",
+            method: :post, data: { confirm: "FAVORITE : You sure?" } %>
       <% end %>
       (<%= Favorite.where(micropost_id: micropost.id).count %>)&nbsp;&nbsp;
     <% end %>
 
     <span class="timestamp">
-      Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+      <%= t('view.Posted') %> <%= time_ago_in_words(micropost.created_at) %><%= t('view.ago') %>.
     </span>
     <% if current_user == micropost.user %>
-      <% if reposted_user != nil %>
-        <%= link_to "unrepost", unrepost_micropost_path(micropost.id), method: :delete,
-            data: { confirm: "UnREPOST : You sure?" } %>
+      <% if reposted_user.present? %>
+        <%= link_to t('view.Unrepost'), unrepost_micropost_path(micropost.id),
+            method: :delete, data: { confirm: "UNREPOST : You sure?" } %>
       <% else %>
         <!--micropost＝micropost_path(micropost)-->
-        <%= link_to "delete", micropost, method: :delete, data: { confirm: "DELETE : You sure?" } %>
+        <%= link_to t('view.Delete'), micropost, method: :delete,
+            data: { confirm: "DELETE : You sure?" } %>
       <% end %>
     <% end %>
   </section>

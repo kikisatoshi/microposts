@@ -4,27 +4,36 @@
     <%= link_to "Microposts", '#', id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "Help", '#' %></li>
-        <li><%= link_to "Users", userlist_path %></li>
+      	<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <%= t('view.Language') %> <b class="caret"></b>
+        	</a>
+        	<ul class="dropdown-menu">
+        		<li><%= link_to "日本語", i18n_url_for(params.merge(locale: :ja)) %></li>
+        		<li><%= link_to "English", i18n_url_for(params.merge(locale: :en)) %></li>
+        	</ul>
+      	</li>
+        <li><%= link_to t('view.Home'), root_path %></li>
+        <li><%= link_to t('view.Help'), '#' %></li>
         <% if logged_in? %>
+          <li><%= link_to t('view.Users'), userlist_path %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!--<b>:太字。caret:▼マーク-->
-              Account <b class="caret"></b>
+              <%= t('view.Account') %> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+              <li><%= link_to t('view.Profile'), current_user %></li>
+              <li><%= link_to t('view.Settings'), edit_user_path(current_user) %></li>
               <!--divider:横線で分ける-->
               <li class="divider"></li>
               <li>
-                <%= link_to "Log out", logout_path, method: "delete" %>
+                <%= link_to t('view.Log out'), logout_path, method: "delete" %>
               </li>
             </ul>
           </li>
         <% else %>
-          <li><%= link_to "Log in", login_path %></li>
+          <li><%= link_to t('view.Log in'), login_path %></li>
         <% end %>
       </ul>
     </nav>

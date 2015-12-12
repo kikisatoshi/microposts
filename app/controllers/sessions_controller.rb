@@ -9,11 +9,19 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      flash[:info] = "logged in as #{@user.name}"
+      if locale == :ja
+        flash[:info] = "#{@user.name}さんがログインしました。"
+      else
+        flash[:info] = "logged in as #{@user.name}."
+      end
       # UsersControllerのshowアクションへリダイレクト
       redirect_to @user
     else
-      flash[:danger] = 'invalid email/password combination'
+      if locale == :ja
+        flash[:danger] = 'メールアドレスとパスワードが不正な組み合わせです。'
+      else
+        flash[:danger] = 'invalid email/password combination'
+      end
       render 'new'
     end
   end

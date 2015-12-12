@@ -6,7 +6,7 @@
   </aside>
   <div class="col-md-8">
     <% if @microposts.any? %>
-      <h3>Favorites (<%= @microposts.count %>)</h3>
+      <h3><%= t('view.Favorites') %> (<%= @microposts.count %>)</h3>
       <ol class="microposts">
         <%= page_entries_info @favorites %>
         <%= render @microposts %>

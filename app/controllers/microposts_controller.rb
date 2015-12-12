@@ -1,16 +1,21 @@
 class MicropostsController < ApplicationController
   # ログインしていない場合はcreateメソッドを実行せず、/loginにリダイレクト
   before_action :logged_in_user
-  before_action :set_micropost, only: [:destroy, :repost, :unrepost, :favorite, :unfavorite]
+  before_action :set_micropost, only: [:destroy, :repost, :unrepost, :favorite,
+                                       :unfavorite]
 
   def create
     # build:モデルオブジェクトを生成。newメソッドの別名。
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
-      flash[:success] = "Micropost created!"
+      if locale == :ja
+        flash[:success] = "マイクロポストがポストされました。"
+      else
+        flash[:success] = "Micropost created!"
+      end
       redirect_to request.referrer || root_url
     else
-      @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc)
+      @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc).page(params[:page])
       render 'static_pages/home'
     end
   end
@@ -28,7 +33,11 @@ class MicropostsController < ApplicationController
       end
     end
     @micropost.destroy
-    flash[:success] = "Micropost deleted"
+    if locale == :ja
+      flash[:success] = "マイクロポストが削除されました。"
+    else
+      flash[:success] = "Micropost deleted."
+    end
     # request.referrer:該当ページに遷移する直前に閲覧していたページのURL
     redirect_to request.referrer || root_url
   end
@@ -38,7 +47,11 @@ class MicropostsController < ApplicationController
     if micropost.save
       repost = @micropost.reposts.build(repost_micropost_id: micropost.id)
       if repost.save
-        flash[:success] = "Micropost reposted!"
+        if locale == :ja
+          flash[:success] = "マイクロポストがリポストされました。"
+        else
+          flash[:success] = "Micropost reposted."
+        end
       end
     end
     redirect_to request.referrer || root_url
@@ -48,14 +61,22 @@ class MicropostsController < ApplicationController
     return redirect_to root_url unless Repost.exists?(:repost_micropost_id => @micropost.id)
     Repost.find_by(repost_micropost_id: @micropost.id).destroy
     @micropost.destroy
-    flash[:success] = "Micropost unreposted"
+    if locale == :ja
+      flash[:success] = "リポストが解除されました。"
+    else
+      flash[:success] = "Micropost unreposted."
+    end
     redirect_to request.referrer || root_url
   end
 
   def favorite
     favorite = current_user.favorites.build(micropost_id: @micropost.id)
     if favorite.save
-      flash[:success] = "Micropost favorite!"
+      if locale == :ja
+        flash[:success] = "お気に入りに追加されました。"
+      else
+        flash[:success] = "Micropost added to favorites."
+      end
     end
     redirect_to request.referrer || root_url
   end
@@ -65,7 +86,11 @@ class MicropostsController < ApplicationController
     for favorite in Favorite.where(micropost_id: @micropost.id)
       if current_user.id == favorite.user_id
         favorite.destroy
-        flash[:success] = "Micropost unfavorite"
+        if locale == :ja
+          flash[:success] = "お気に入りから削除されました。"
+        else
+          flash[:success] = "Micropost deleted from favorites."
+        end
       end
     end
     redirect_to request.referrer || root_url

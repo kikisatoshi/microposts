@@ -6,7 +6,7 @@
   </aside>
   <div class="col-md-8">
     <% if @followings.any? %>
-      <h3>Followings (<%= @followings.count %>)</h3>
+      <h3><%= t('view.Followings') %> (<%= @user.following_users.count %>)</h3>
       <ol class="followings">
         <%= page_entries_info @followings %>
         <!--%= render 'users/followings_form', following_user: @user.following_users %>-->
@@ -14,8 +14,8 @@
           <li id="following-<%= following.id %>">
             <%= link_to gravatar_for(following, size: 50), following %>
             <span class="user"><%= link_to following.name, following %></span>
-            <span class="location">Location : <%= following.location %></span>
-            <span class="profile">Profile : <%= following.profile %></span>
+            <span class="location"><%= t('view.Location') %> : <%= following.location %></span>
+            <span class="profile"><%= t('view.Profile') %> : <%= following.profile %></span>
           </li>
         <% end %>
         <%= paginate @followings %>

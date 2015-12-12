@@ -1,5 +1,9 @@
 <!--gravatar_for:Gravatarというサービスに登録された画像を引っ張ってくる-->
 <%= link_to gravatar_for(current_user, size: 50), current_user %>
 <h1><%= current_user.name %></h1>
-<span><%= link_to "view my profile", current_user %></span>
-<span><%= pluralize(current_user.microposts.count, "micropost") %></span>
+<span><%= link_to t('view.view my profile'), current_user %></span>
+<% if locale == :ja %>
+  <span><%= current_user.microposts.count %> <%= t('view.micropost') %></span>
+<% else %>
+  <span><%= pluralize(current_user.microposts.count, "micropost") %></span>
+<% end %>

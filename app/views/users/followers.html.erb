@@ -6,15 +6,15 @@
   </aside>
   <div class="col-md-8">
     <% if @followers.any? %>
-      <h3>Followers (<%= @followers.count %>)</h3>
+      <h3><%= t('view.Followers') %> (<%= @user.follower_users.count %>)</h3>
       <ol class="followers">
         <%= page_entries_info @followers %>
         <% @followers.each do |follower| %>
           <li id="follower-<%= follower.id %>">
             <%= link_to gravatar_for(follower, size: 50), follower %>
             <span class="user"><%= link_to follower.name, follower %></span>
-            <span class="location">Location : <%= follower.location %></span>
-            <span class="profile">Profile : <%= follower.profile %></span>
+            <span class="location"><%= t('view.Location') %> : <%= follower.location %></span>
+            <span class="profile"><%= t('view.Profile') %> : <%= follower.profile %></span>
           </li>
         <% end %>
         <%= paginate @followers %>

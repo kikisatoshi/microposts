@@ -2,10 +2,16 @@
   <%= gravatar_for @user %>
   <%= @user.name %>
 </h1>
-<span><%= link_to "view my profile", @user %></span>
-<span><%= link_to "followings(#{@user.following_users.count})", followings_user_path(@user) %>&nbsp;&nbsp;
-      <%= link_to "followers(#{@user.follower_users.count})", followers_user_path(@user) %></span>
-<span><%= link_to "favorites(#{@user.favorites.count})", myfavorites_user_path(@user) %></span>
+<span><%= link_to t('view.view my profile'), @user %></span>
+<span><%= link_to t('view.followings') + "(#{@user.following_users.count})", followings_user_path(@user) %>&nbsp;&nbsp;
+      <%= link_to t('view.followers') + "(#{@user.follower_users.count})", followers_user_path(@user) %></span>
+<span><%= link_to t('view.favorites') + "(#{@user.favorites.count})", show_favorites_user_path(@user) %></span>
 <br>
-<h2>Location : <%= @user.location %></h2>
-<h2>Profile : <%= @user.profile %></h2>
+<h2>
+  <span class="location"><%= t('view.Location') %> : </span>
+  <%= @user.location %>
+</h2>
+<h2>
+  <span class="profile"><%= t('view.Profile') %> : </span>
+  <%= @user.profile %>
+</h2>
