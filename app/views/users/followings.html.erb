@@ -7,8 +7,8 @@
   <div class="col-md-8">
     <% if @followings.any? %>
       <h3><%= t('view.Followings') %> (<%= @user.following_users.count %>)</h3>
+      <%= page_entries_info @followings %>
       <ol class="followings">
-        <%= page_entries_info @followings %>
         <!--%= render 'users/followings_form', following_user: @user.following_users %>-->
         <% @followings.each do |following| %>
           <li id="following-<%= following.id %>">
@@ -18,8 +18,8 @@
             <span class="profile"><%= t('view.Profile') %> : <%= following.profile %></span>
           </li>
         <% end %>
-        <%= paginate @followings %>
       </ol>
+      <%= paginate @followings %>
     <% end %>
   </div>
 </div>

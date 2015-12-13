@@ -2,8 +2,8 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+      <%= page_entries_info @all_users %>
       <ol class="all_users">
-        <%= page_entries_info @all_users %>
         <% @all_users.each do |user| %>
           <li id="user-<%= user.id %>">
             <%= link_to gravatar_for(user, size: 50), user %>
@@ -12,7 +12,7 @@
             <span class="profile"><%= t('view.Profile') %> : <%= user.profile %></span>
           </li>
         <% end %>
-        <%= paginate @all_users %>
       </ol>
+      <%= paginate @all_users %>
   </div>
 </div>

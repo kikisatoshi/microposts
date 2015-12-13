@@ -8,14 +8,14 @@
     <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
       <h3><%= t('view.Microposts') %> (<%= @user.microposts.count %>)</h3>
+      <%= page_entries_info @microposts %>
       <ol class="microposts">
-        <%= page_entries_info @microposts %>
         <!--<= render partial: 'microposts/micropost', collection: @microposts >と同じ。-->
         <!--@micropostsからデータを一つ一つ取り出して、micropostというローカル変数として、-->
         <!--パーシャルapp/views/microposts/_micropost.html.erbに渡している-->
         <%= render @microposts %>
-        <%= paginate @microposts %>
       </ol>
+      <%= paginate @microposts %>
     <% end %>
   </div>
 </div>

@@ -7,11 +7,11 @@
   <div class="col-md-8">
     <% if @microposts.any? %>
       <h3><%= t('view.Favorites') %> (<%= @microposts.count %>)</h3>
+      <%= page_entries_info @favorites %>
       <ol class="microposts">
-        <%= page_entries_info @favorites %>
         <%= render @microposts %>
-        <%= paginate @favorites %>
       </ol>
+      <%= paginate @favorites %>
     <% end %>
   </div>
 </div>

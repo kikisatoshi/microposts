@@ -7,8 +7,8 @@
   <div class="col-md-8">
     <% if @followers.any? %>
       <h3><%= t('view.Followers') %> (<%= @user.follower_users.count %>)</h3>
+      <%= page_entries_info @followers %>
       <ol class="followers">
-        <%= page_entries_info @followers %>
         <% @followers.each do |follower| %>
           <li id="follower-<%= follower.id %>">
             <%= link_to gravatar_for(follower, size: 50), follower %>
@@ -17,8 +17,8 @@
             <span class="profile"><%= t('view.Profile') %> : <%= follower.profile %></span>
           </li>
         <% end %>
-        <%= paginate @followers %>
       </ol>
+      <%= paginate @followers %>
     <% end %>
   </div>
 </div>
