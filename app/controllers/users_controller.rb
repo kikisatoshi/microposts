@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   before_action :set_user, except: [:new, :create]
   before_action :authorize!, only: [:edit, :update]
 
+  def index
+    redirect_to root_url
+  end
+
   def show
     # ユーザーに紐付いたマイクロポストを作成日時が新しいものから取得し、@micropostsに代入
     # page(params[:page]はページネーション用

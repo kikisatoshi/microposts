@@ -3,6 +3,9 @@ class MicropostsController < ApplicationController
   before_action :logged_in_user
   before_action :set_micropost, only: [:destroy, :repost, :unrepost, :favorite,
                                        :unfavorite]
+  def index
+    redirect_to request.referrer || root_url
+  end
 
   def create
     # build:モデルオブジェクトを生成。newメソッドの別名。
@@ -13,7 +16,7 @@ class MicropostsController < ApplicationController
       else
         flash[:success] = "Micropost created!"
       end
-      redirect_to request.referrer || root_url
+      redirect_to root_url
     else
       @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc).page(params[:page])
       render 'static_pages/home'
